@@ -12,7 +12,19 @@ export function getSpecialTips() {
 		.then((response) => response.data)
 		.catch((err) => Promise.reject('Request Not Authenticated!'));
 }
+export function getEventHistory() {
+	return axios
+		.get(`${BASE_URL}/events`, { params: { 'x-access-token': localStorage.getItem('x-access-token') } })
+		.then((response) => response.data)
+		.catch((err) => Promise.reject('Request Not Authenticated!'));
+}
 
+export function getChatHistory() {
+	return axios
+		.get(`${BASE_URL}/chat`, { params: { 'x-access-token': localStorage.getItem('x-access-token') } })
+		.then((response) => response.data)
+		.catch((err) => Promise.reject('Request Not Authenticated!'));
+}
 export function login(data) {
 	return axios
 		.post(`${BASE_URL}/api/auth`, { username: data.username, password: data.password })

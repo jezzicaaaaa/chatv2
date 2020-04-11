@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavItem, NavLink } from 'reactstrap';
-import classnames from 'classnames';
+import './tabs.styles.css';
 
 const Tabs = (props) => {
 	const index = props.index;

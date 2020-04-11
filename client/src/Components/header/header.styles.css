@@ -9,17 +9,15 @@
 	align-self: center;
 }
 
-p {
+.admin-header p {
 	color: white;
 }
-button {
+.admin-header button {
 	padding: 8px 5px;
 	border-radius: 3px;
-	outline: none;
-	align-content: center;
 }
 
-button a {
+.admin-header button a {
 	text-decoration: none;
 	width: 50px;
 	color: black;

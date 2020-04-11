@@ -22,25 +22,27 @@ class Login extends Component {
 		return (
 			<div className="login">
 				<div className="login-card">
-					<h1>Login</h1>
-					<form className="login-form" onSubmit={this.submitLogin}>
-						<input
-							type="text"
-							className="form-control"
-							name="username"
-							placeholder="Username"
-							onChange={this.handleInputChange}
-						/>
-						<input
-							type="password"
-							className="form-control"
-							name="password"
-							onChange={this.handleInputChange}
-						/>
-						<button type="submit" className="btn btn-default">
-							Submit
-						</button>
-					</form>
+					<div className="login-container">
+						<h1>Login</h1>
+						<form className="login-form" onSubmit={this.submitLogin}>
+							<input
+								type="text"
+								className="form-control"
+								name="username"
+								placeholder="Username"
+								onChange={this.handleInputChange}
+							/>
+							<input
+								type="password"
+								className="form-control"
+								name="password"
+								onChange={this.handleInputChange}
+							/>
+							<button className="btn-prime" type="submit">
+								Submit
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		);

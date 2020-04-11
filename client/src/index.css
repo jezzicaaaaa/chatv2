@@ -13,8 +13,16 @@ code {
 }
 
 h1 {
-	/* font-family: 'Schoolbell', cursive; */
 	font-family: 'Bigelow Rules';
-	font-size: 72px;
-	/* color: #0ccac4; */
+	font-size: 72px !important;
+	font-weight: 600 !important;
+	letter-spacing: 0.2rem;
+}
+
+button.btn-prime {
+	color: white;
+	background: #0ccac4;
+	border: none;
+	outline: none;
+	align-content: center;
 }
