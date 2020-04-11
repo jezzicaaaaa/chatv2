@@ -1,0 +1,40 @@
+.login {
+	height: 90vh;
+	position: relative;
+}
+
+.login-card {
+	background: whitesmoke;
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+	border: 2px solid transparent;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.login-form {
+	width: 75%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+}
+input {
+	padding: 2px 10px;
+	height: 30px;
+	background: #e7e7e7;
+	outline: none;
+	border: none;
+	margin-bottom: 10px;
+}
+button {
+	padding: 12px 5px;
+	outline: none;
+	border: none;
+	margin-top: 10px;
+	background: #0ccac4;
+}

@@ -1,0 +1,29 @@
+.admin-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding: 10px 15px;
+}
+.admin-header > * {
+	margin: 10px 20px;
+	align-self: center;
+}
+
+p {
+	color: white;
+}
+button {
+	padding: 8px 5px;
+	border-radius: 3px;
+	outline: none;
+	align-content: center;
+}
+
+button a {
+	text-decoration: none;
+	width: 50px;
+	color: black;
+	padding: 0px 20px;
+	align-self: center;
+	font-size: 12px;
+}
