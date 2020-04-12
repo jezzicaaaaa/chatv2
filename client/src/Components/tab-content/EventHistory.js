@@ -9,6 +9,7 @@ class EventHistory extends Component {
 		this.state = {
 			error: null,
 			isLoaded: false,
+			auth: false,
 			events: []
 		};
 	}
@@ -17,14 +18,14 @@ class EventHistory extends Component {
 		if (isAuthenticated())
 			getEventHistory()
 				.then((events) => {
-					this.setState({ events, isLoaded: true });
+					this.setState({ events, isLoaded: true, auth: true });
 				})
 				.catch((err) => {
 					alert('User Not Authenticated');
 					this.setState({ auth: false });
 				});
 		else {
-			alert('User Not Authenticated');
+			// alert('User Not Authenticated');
 			this.setState({ auth: false });
 		}
 	}

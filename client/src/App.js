@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Login from './Components/login/Login';
 import Header from './Components/header/Header';
-import Regular from './Components/Regular';
-import Special from './Components/Special';
 import Home from './Components/Home';
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
+import Lobby from './Components/lobby/Lobby';
+import Chatroom from './Components/chatroom/Chatroom';
+import { BrowserRouter as Router, Route, Redirect, Link, Switch } from 'react-router-dom';
 import { isAuthenticated } from './repository';
 
 class App extends Component {
@@ -16,42 +16,13 @@ class App extends Component {
 		return (
 			<Router>
 				<div>
-					{isAuthenticated() ? (
-						<div className="container-fluid container">
-							<Header buttonClick={this.logOut} />
-							<div className="navbar-header">
-								<span className="navbar-brand">
-									<Link to="/"> DevTip</Link>
-								</span>
-							</div>
-							<ul className="nav navbar-nav">
-								<li>
-									<Link to="/">Home</Link>
-								</li>
-								<li>
-									<Link to="/tip/regular">Regular Tips</Link>
-								</li>
-								<li>{isAuthenticated() ? <Link to="/tip/special">Special Tips</Link> : ''}</li>
-							</ul>
-							<ul className="nav navbar-nav navbar-right">
-								{isAuthenticated() ? (
-									<li onClick={this.logOut}>
-										<a href="/">Log out</a>{' '}
-									</li>
-								) : (
-									<li>
-										<Link to="/login">Log in</Link>
-									</li>
-								)}
-							</ul>
-						</div>
-					) : (
-						<Redirect to="/login" />
-					)}
-					<Route exact path="/" component={Home} />
-					<Route exact path="/tip/regular" component={Regular} />
-					<Route exact path="/tip/Special" component={Special} />
-					<Route exact path="/login" component={Login} />
+					<Header loggedin={isAuthenticated() ? true : false} logout={this.logOut} />
+					<Switch>
+						<Route exact path="/" component={Lobby} />
+						<Route path="/login" component={Login} />
+						<Route path="/admin-home" component={Home} />
+						<Route path="/chatroom" component={Chatroom} />
+					</Switch>
 				</div>
 			</Router>
 		);

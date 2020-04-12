@@ -1,0 +1,14 @@
+#sendContainer {
+	margin: auto;
+	position: fixed;
+	padding-bottom: 30px;
+	bottom: 0;
+	background-color: white;
+	max-width: 1200px;
+	width: 80%;
+	display: flex;
+}
+
+#messageInput {
+	flex-grow: 1;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { login } from '../../repository';
-import { Card, Container } from 'reactstrap';
 import './login.styles.css';
 
 class Login extends Component {
@@ -15,7 +15,7 @@ class Login extends Component {
 
 	submitLogin = (event) => {
 		event.preventDefault();
-		login(this.state).then((token) => (window.location = '/')).catch((err) => alert(err));
+		login(this.state).then((token) => (window.location = '/admin-home')).catch((err) => alert(err));
 	};
 
 	render() {
@@ -41,6 +41,8 @@ class Login extends Component {
 							<button className="btn-prime" type="submit">
 								Submit
 							</button>
+							<p>or</p>
+							<Link to="/lobby">Continue as guest</Link>
 						</form>
 					</div>
 				</div>

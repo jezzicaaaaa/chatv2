@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import { getChatHistory, isAuthenticated } from '../../repository';
-import { Redirect } from 'react-router-dom';
 
 class ChatHistory extends Component {
 	constructor(props) {
@@ -24,7 +23,7 @@ class ChatHistory extends Component {
 					this.setState({ auth: false });
 				});
 		else {
-			alert('User Not Authenticated');
+			// alert('User Not Authenticated');
 			this.setState({ auth: false });
 		}
 	}

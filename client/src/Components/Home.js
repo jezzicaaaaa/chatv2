@@ -1,8 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Tabs from './tabs/Tabs';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav } from 'reactstrap';
 import EventHistory from './tab-content/EventHistory';
 import ChatHistory from './tab-content/ChatHistory';
+import Rooms from './tab-content/Rooms';
 
 class Home extends Component {
 	constructor(props) {
@@ -38,7 +39,9 @@ class Home extends Component {
 						<TabPane tabId="1">
 							<ChatHistory />
 						</TabPane>
-						<TabPane tabId="2">Tab 3 Content</TabPane>
+						<TabPane tabId="2">
+							<Rooms />
+						</TabPane>
 					</TabContent>
 				</div>
 			</div>

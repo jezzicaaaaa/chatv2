@@ -156,7 +156,7 @@ io.on('connection', (socket) => {
 		socket.join(roomname);
 		let data = { user: socket.username, id: socket.id };
 		userjoined(data, roomname);
-		let event = new Socket({ event: 'join', socketid: socket.id, username: socket.username, roomname: roomname });
+		let event = new Sockets({ event: 'join', socketid: socket.id, username: socket.username, roomname: roomname });
 		event.save();
 	});
 
