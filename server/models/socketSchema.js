@@ -13,6 +13,6 @@ const socketSchema = new Schema(
 	}
 );
 
-let Socket = mongoose.model('Socket', socketSchema);
+let Sockets = mongoose.model('Sockets', socketSchema);
 
-module.exports = Socket;
+module.exports = Sockets;

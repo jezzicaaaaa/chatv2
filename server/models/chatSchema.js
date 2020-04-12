@@ -5,7 +5,8 @@ const chatSchema = new Schema(
 	{
 		message: { type: {} },
 		sender: { type: String },
-		roomname: { type: String }
+		roomname: { type: String },
+		roomStatus: { type: String }
 	},
 	{
 		timestamps: true
