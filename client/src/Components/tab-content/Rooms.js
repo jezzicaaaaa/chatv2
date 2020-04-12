@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 import { getChatHistory, isAuthenticated } from '../../repository';
+import socket from '../../socket';
 
 class Rooms extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			modal: false,
-			chats: []
+			chats: [],
+			rooms: []
 		};
 	}
 	toggle = () => this.setState({ modal: !this.state.modal });
@@ -25,12 +27,17 @@ class Rooms extends Component {
 		else {
 			this.setState({ auth: false });
 		}
+		socket.on('rooms', (room) => {
+			this.setState({ rooms: room });
+		});
 	}
 	render() {
 		return (
 			<div>
-				<h2>Rooms</h2>
-				<button onClick={this.toggle}>Add New Room</button>
+				<br />
+				<button className="btn-prime" onClick={this.toggle}>
+					Add New Room
+				</button>
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
 					<ModalBody>

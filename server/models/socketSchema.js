@@ -14,5 +14,4 @@ const socketSchema = new Schema(
 );
 
 let Sockets = mongoose.model('Sockets', socketSchema);
-
 module.exports = Sockets;
