@@ -1,36 +1,35 @@
 import React, { Component } from 'react';
 import { Button, Input, FormGroup, Label, Alert } from 'reactstrap';
-import socket from '../../../socket';
+import socket from '../../socket';
 
 class AddRoom extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			roomName: '',
-			username: '',
-			visible: false,
-			rooms: []
+			status: 'active',
+			visible: false
 		};
 	}
 	onDismiss = () => {
 		this.setState({ visible: false });
 	};
-	handleChange = (e) => {
+	handleRoom = (e) => {
 		this.setState({ roomName: e.target.value });
 	};
-	handleUsername = (e) => {
-		this.setState({ username: e.target.value });
+	handleStatus = (e) => {
+		this.setState({ status: e.target.value });
 	};
 
 	handleClick = (e) => {
-		let includes = this.props.rooms.includes(this.state.roomName);
-		if (this.state.roomName === '' || this.state.username === '' || includes === true) {
+		const found = this.props.rooms.some((el) => el.roomname === this.state.roomName);
+
+		if (this.state.roomName === '' || found === true) {
 			e.preventDefault();
 			this.setState({ visible: true });
 		} else {
-			socket.emit('create_room', this.state.roomName, this.state.username);
-			this.setState({ roomName: '', username: '' });
-			this.onDismiss();
+			this.props.createHandler(this.state.roomName, 'admin');
+			this.setState({ roomName: '', visible: false });
 		}
 	};
 
@@ -48,24 +47,20 @@ class AddRoom extends Component {
 						id="roomName"
 						placeholder="bbbrrROOM"
 						value={this.state.roomName}
-						onChange={this.handleChange}
+						onChange={this.handleRoom}
 					/>
 				</FormGroup>
 				<FormGroup>
-					<Label for="username">Username:</Label>
-					<Input
-						type="text"
-						name="text"
-						id="username"
-						placeholder="coolkid555"
-						value={this.state.username}
-						onChange={this.handleUsername}
-					/>
+					<Label for="username">Status</Label>
+					<select value={this.state.status} onChange={this.handleStatus}>
+						<option value="active">Active</option>
+						<option value="inactive">Inactive</option>
+					</select>
 				</FormGroup>
 				<FormGroup>
-						<Button color="primary" onClick={this.handleClick}>
-							Add
-						</Button>
+					<Button onClick={this.handleClick} color="primary">
+						Add
+					</Button>
 				</FormGroup>
 			</React.Fragment>
 		);

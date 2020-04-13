@@ -18,7 +18,7 @@ class AdminHome extends Component {
 
 	render() {
 		const toggle = (index) => {
-			this.setState({ activeTab: index }, console.log(this.state.activeTab));
+			this.setState({ activeTab: index });
 		};
 		return (
 			<div className="admin-home">
@@ -43,7 +43,7 @@ class AdminHome extends Component {
 								<ChatHistory />
 							</TabPane>
 							<TabPane tabId="2">
-								<Rooms />
+								<Rooms createHandler={this.props.createHandler} rooms={this.props.rooms} />
 							</TabPane>
 						</TabContent>
 					</div>

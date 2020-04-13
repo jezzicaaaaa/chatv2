@@ -9,7 +9,7 @@ router.route('/').get((req, res, next) => {
 
 	connectdb.then((db) => {
 		Rooms.find({}).then((room) => {
-			res.send(chat);
+			res.send(room);
 		});
 	});
 });
@@ -27,7 +27,7 @@ router.route('/').get((req, res, next) => {
 // 	  }
 // 	})
 //   });
-  
+
 //   // Delete Room
 //   router.route('/admin-home/:id').delete((req, res, next) => {
 // 	Rooms.findByIdAndRemove(req.params.id, (error, data) => {

@@ -18,8 +18,9 @@ const connect = require('./dbConnection');
 const Chat = require('./models/chatSchema');
 const chatRouter = require('./routes/chatRoute');
 const Sockets = require('./models/socketSchema');
-const Rooms = require('./models/roomSchema');
 const socketRouter = require('./routes/socketRoute');
+const Rooms = require('./models/roomSchema');
+const roomRouter = require('./routes/roomRoute');
 const index = require('./routes/index');
 
 let port = process.env.PORT || 3100;
@@ -45,7 +46,7 @@ app.get('/api/tips/special', middleware, (req, res) => {
 app.use('/', index);
 app.use('/chat', chatRouter);
 app.use('/events', socketRouter);
-
+app.use('/rooms', roomRouter);
 app.post('/api/auth', (req, res) => {
 	let user = data.users.filter((user) => {
 		return user.username == req.body.username && user.password == req.body.password;
@@ -119,9 +120,11 @@ io.on('connection', (socket) => {
 				username: socket.username,
 				roomname: roomname
 			});
+
 			let room = new Rooms({
 				roomname: roomname,
 				created: Date.now(),
+				edited: Date.now(),
 				status: 'active'
 			});
 			event.save();
@@ -140,7 +143,7 @@ io.on('connection', (socket) => {
 				event: 'sendMessage',
 				socketid: socket.id,
 				username: socket.username,
-				roomname: roomname
+				roomname: msgObj.room
 			});
 			event.save();
 		});

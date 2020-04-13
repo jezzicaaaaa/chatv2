@@ -25,6 +25,13 @@ export function getChatHistory() {
 		.then((response) => response.data)
 		.catch((err) => Promise.reject('Request Not Authenticated!'));
 }
+export function getRooms() {
+	return axios
+		.get(`${BASE_URL}/rooms`, { params: { 'x-access-token': localStorage.getItem('x-access-token') } })
+		.then((response) => response.data)
+		.catch((err) => Promise.reject('Request Not Authenticated!'));
+}
+
 export function login(data) {
 	return axios
 		.post(`${BASE_URL}/api/auth`, { username: data.username, password: data.password })

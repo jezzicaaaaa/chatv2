@@ -1,38 +1,35 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
-import { getChatHistory, isAuthenticated } from '../../repository';
+import { getRooms, isAuthenticated } from '../../repository';
 import socket from '../../socket';
-import AddRoom from '../admin-home/crud/AddRoom';
-import RoomTableLinks from '../admin-home/crud/RoomTableLinks';
+import AddRoom from '../crud/AddRoom';
+import RoomTableLinks from '../crud/RoomTableLinks';
 
 class Rooms extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			modal: false,
-			chats: [],
-			rooms: []
+			auth: false,
+			isLoaded: false
 		};
 	}
 	toggle = () => this.setState({ modal: !this.state.modal });
 
-	componentDidMount() {
-		if (isAuthenticated())
-			getChatHistory()
-				.then((chats) => {
-					this.setState({ chats, isLoaded: true });
-				})
-				.catch((err) => {
-					alert('User Not Authenticated');
-					this.setState({ auth: false });
-				});
-		else {
-			this.setState({ auth: false });
-		}
-		socket.on('rooms', (room) => {
-			this.setState({ rooms: room });
-		});
-	}
+	// componentDidMount() {
+	// 	if (isAuthenticated())
+	// 		getRooms()
+	// 			.then((rooms) => {
+	// 				this.setState({ rooms, auth: true });
+	// 			})
+	// 			.catch((err) => {
+	// 				// alert('User Not Authenticated');
+	// 				this.setState({ auth: false });
+	// 			});
+	// 	else {
+	// 		this.setState({ auth: false });
+	// 	}
+	// }
 	render() {
 		return (
 			<div>
@@ -44,40 +41,44 @@ class Rooms extends Component {
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
 					<ModalBody>
-						<AddRoom rooms={this.state.rooms} users={this.state.users} />
+						<AddRoom createHandler={this.props.createHandler} rooms={this.props.rooms} />
 					</ModalBody>
 				</Modal>
-				{/* <Modal isOpen={this.state.modal} toggle={this.toggle}>
-					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
-					<ModalBody>
-						<label>Room Name</label>
-						<input type="text" />
-						<br />
-						<label>Status</label>
-						<input type="text" />
-					</ModalBody>
-					<ModalFooter>
-						<Button color="primary" onClick={this.toggle}>
-							Save
-						</Button>{' '}
-						<Button color="secondary" onClick={this.toggle}>
-							Cancel
-						</Button>
-					</ModalFooter>
-				</Modal> */}
+
 				<hr />
 				<Table dark>
 					<thead>
 						<tr>
-							<th>Room Number</th>
+							<th>#</th>
 							<th>Room Name</th>
+							<th>Created Date</th>
+							<th>Edited Date</th>
+							<th>Status</th>
 							<th />
 						</tr>
 					</thead>
-					<RoomTableLinks rooms={this.state.rooms} />
+					<tbody>
+						{this.props.rooms.map((room, index) => {
+							return (
+								<tr key={index}>
+									<td>{index + 1}</td>
+									<td>{room.roomname}</td>
+									<td>{room.created}</td>
+									<td>{room.edited}</td>
+									<td>{room.status}</td>
+									<td>
+										<button>Edit</button>
+										<button>Delete</button>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
 				</Table>
 			</div>
 		);
 	}
 }
 export default Rooms;
+
+// <RoomTableLinks rooms={this.state.rooms} />

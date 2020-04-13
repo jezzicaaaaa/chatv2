@@ -8,6 +8,7 @@ class ChatHistory extends Component {
 		this.state = {
 			error: null,
 			isLoaded: false,
+			auth: false,
 			chats: []
 		};
 	}
@@ -16,7 +17,7 @@ class ChatHistory extends Component {
 		if (isAuthenticated())
 			getChatHistory()
 				.then((chats) => {
-					this.setState({ chats, isLoaded: true });
+					this.setState({ chats, isLoaded: true, auth: true });
 				})
 				.catch((err) => {
 					alert('User Not Authenticated');
@@ -56,7 +57,7 @@ class ChatHistory extends Component {
 										<td>{message.roomname}</td>
 										<td>{message.sender}</td>
 										<td>{message.message}</td>
-										<td>{message.createdAt}</td>
+										<td>{message.createdAt}}</td>
 									</tr>
 								);
 							})}
@@ -67,4 +68,5 @@ class ChatHistory extends Component {
 		}
 	}
 }
+
 export default ChatHistory;

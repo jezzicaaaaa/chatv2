@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import socket from '../../../socket';
+import socket from '../../socket';
 
 const RoomTableLinks = (props) => {
 	const [ username ] = useState('');
@@ -22,7 +22,6 @@ const RoomTableLinks = (props) => {
 								<Button color="danger">Delete</Button>
 							</Link>
 						</td>
-						
 					</tr>
 				);
 			})}
