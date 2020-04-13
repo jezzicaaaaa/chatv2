@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table, Row, Col, Container } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 import { getChatHistory, isAuthenticated } from '../../repository';
 import socket from '../../socket';
 import RoomTable from '../lobby/RoomTable';
+import AddRoom from '../admin-home/crud/AddRoom';
 
 class Rooms extends Component {
 	constructor(props) {
@@ -36,10 +37,17 @@ class Rooms extends Component {
 		return (
 			<div>
 				<br />
+
 				<button className="btn-prime" onClick={this.toggle}>
 					Add New Room
 				</button>
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
+					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
+					<ModalBody>
+						<AddRoom rooms={this.state.rooms} users={this.state.users} />
+					</ModalBody>
+				</Modal>
+				{/* <Modal isOpen={this.state.modal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
 					<ModalBody>
 						<label>Room Name</label>
@@ -56,7 +64,7 @@ class Rooms extends Component {
 							Cancel
 						</Button>
 					</ModalFooter>
-				</Modal>
+				</Modal> */}
 				<hr />
 				<Table dark>
 					<thead>
