@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table, Row, Col, Container } from 'reactstrap';
 import { getChatHistory, isAuthenticated } from '../../repository';
 import socket from '../../socket';
+import RoomTable from '../lobby/RoomTable';
 
 class Rooms extends Component {
 	constructor(props) {
@@ -65,7 +66,7 @@ class Rooms extends Component {
 							<th />
 						</tr>
 					</thead>
-					<tbody />
+					<RoomTable rooms={this.state.rooms} />
 				</Table>
 			</div>
 		);
