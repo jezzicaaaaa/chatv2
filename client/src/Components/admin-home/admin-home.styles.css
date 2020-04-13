@@ -1,0 +1,8 @@
+.admin-home {
+	margin: 0 auto;
+}
+.admin-home h1 {
+	text-align: center;
+	color: whitesmoke;
+	transform: translateY(200%);
+}

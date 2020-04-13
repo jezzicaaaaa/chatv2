@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from './Components/login/Login';
 import Header from './Components/header/Header';
-import Home from './Components/Home';
+import AdminHome from './Components/admin-home/AdminHome';
 import Lobby from './Components/lobby/Lobby';
 import Chatroom from './Components/chatroom/Chatroom';
 import { BrowserRouter as Router, Route, Redirect, Link, Switch } from 'react-router-dom';
@@ -20,7 +20,7 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" component={Lobby} />
 						<Route path="/login" component={Login} />
-						<Route path="/admin-home" component={Home} />
+						<Route path="/admin-home" component={AdminHome} />
 						<Route path="/chatroom" component={Chatroom} />
 					</Switch>
 				</div>
