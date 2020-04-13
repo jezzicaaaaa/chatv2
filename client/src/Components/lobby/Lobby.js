@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Row, Col, Container } from 'reactstrap';
+import { Table, Row, Col, Container, Button } from 'reactstrap';
 import socket from '../../socket';
 
 import CreateRoom from './CreateRoom';
@@ -13,6 +13,10 @@ class Lobby extends Component {
 			rooms: [],
 			users: []
 		};
+	}
+
+	refreshPage(){
+		window.location.reload();
 	}
 
 	componentDidMount() {
@@ -35,7 +39,7 @@ class Lobby extends Component {
 								<tr>
 									<th>Room Number</th>
 									<th>Room Name</th>
-									<th />
+									<th><Button onClick={this.refreshPage}>Refresh Rooms</Button></th>
 								</tr>
 							</thead>
 							<RoomTable rooms={this.state.rooms} />

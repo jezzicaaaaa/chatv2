@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 import { getChatHistory, isAuthenticated } from '../../repository';
 import socket from '../../socket';
-import RoomTable from '../lobby/RoomTable';
 import AddRoom from '../admin-home/crud/AddRoom';
+import RoomTableLinks from '../admin-home/crud/RoomTableLinks';
 
 class Rooms extends Component {
 	constructor(props) {
@@ -74,7 +74,7 @@ class Rooms extends Component {
 							<th />
 						</tr>
 					</thead>
-					<RoomTable rooms={this.state.rooms} />
+					<RoomTableLinks rooms={this.state.rooms} />
 				</Table>
 			</div>
 		);
