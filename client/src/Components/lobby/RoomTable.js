@@ -4,16 +4,22 @@ import { Link } from 'react-router-dom';
 
 const RoomTable = (props) => {
 	const [ username ] = useState('');
-
+	const rooms = props.rooms.filter((room) => room.status == 'active');
 	return (
 		<tbody>
-			{props.rooms.map((room, index) => {
+			{rooms.map((room, index) => {
 				return (
 					<tr key={index}>
 						<td>{index + 1}</td>
-						<td>{room}</td>
+						<td>{room.roomname}</td>
 						<td>
-							<Link to={{ pathname: `/chatroom/${room}`, username: username, roomName: room }}>
+							<Link
+								to={{
+									pathname: `/chatroom/${room.roomname}`,
+									username: username,
+									roomName: room.roomname
+								}}
+							>
 								<Button color="success">Join</Button>
 							</Link>
 						</td>

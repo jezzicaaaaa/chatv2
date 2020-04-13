@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Button, Input, FormGroup, Label, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import socket from '../../socket';
 
-class AddRoom extends Component {
+class EditRoom extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			roomName: '',
-			status: 'active',
+			status: props.room.status,
 			visible: false,
 			modal: false
 		};
@@ -39,7 +39,7 @@ class AddRoom extends Component {
 		return (
 			<div class="admin-add-room">
 				<button className="btn-prime" onClick={this.toggle}>
-					Add New Room
+					Edit
 				</button>
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
@@ -53,13 +53,12 @@ class AddRoom extends Component {
 								type="text"
 								name="text"
 								id="roomName"
-								placeholder="bbbrrROOM"
-								value={this.state.roomName}
+								value={this.props.room.roomname}
 								onChange={this.handleRoom}
 							/>
 						</FormGroup>
 						<FormGroup>
-							<Label for="username">Status</Label>
+							<Label for="status">Status</Label>
 							<select value={this.state.status} onChange={this.handleStatus}>
 								<option value="active">Active</option>
 								<option value="inactive">Inactive</option>
@@ -67,7 +66,10 @@ class AddRoom extends Component {
 						</FormGroup>
 						<FormGroup>
 							<Button onClick={this.handleClick} color="primary">
-								Add
+								Save
+							</Button>
+							<Button onClick={this.toggle} color="primary">
+								Cancel
 							</Button>
 						</FormGroup>
 					</ModalBody>
@@ -76,4 +78,4 @@ class AddRoom extends Component {
 		);
 	}
 }
-export default AddRoom;
+export default EditRoom;

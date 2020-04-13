@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'react
 import { getRooms, isAuthenticated } from '../../repository';
 import socket from '../../socket';
 import AddRoom from '../crud/AddRoom';
+import EditRoom from '../crud/EditRoom';
 import RoomTableLinks from '../crud/RoomTableLinks';
 
 class Rooms extends Component {
@@ -16,35 +17,10 @@ class Rooms extends Component {
 	}
 	toggle = () => this.setState({ modal: !this.state.modal });
 
-	// componentDidMount() {
-	// 	if (isAuthenticated())
-	// 		getRooms()
-	// 			.then((rooms) => {
-	// 				this.setState({ rooms, auth: true });
-	// 			})
-	// 			.catch((err) => {
-	// 				// alert('User Not Authenticated');
-	// 				this.setState({ auth: false });
-	// 			});
-	// 	else {
-	// 		this.setState({ auth: false });
-	// 	}
-	// }
 	render() {
 		return (
 			<div>
-				<br />
-
-				<button className="btn-prime" onClick={this.toggle}>
-					Add New Room
-				</button>
-				<Modal isOpen={this.state.modal} toggle={this.toggle}>
-					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
-					<ModalBody>
-						<AddRoom createHandler={this.props.createHandler} rooms={this.props.rooms} />
-					</ModalBody>
-				</Modal>
-
+				<AddRoom createHandler={this.props.createHandler} rooms={this.props.rooms} />
 				<hr />
 				<Table dark>
 					<thead>
@@ -67,7 +43,7 @@ class Rooms extends Component {
 									<td>{room.edited}</td>
 									<td>{room.status}</td>
 									<td>
-										<button>Edit</button>
+										<EditRoom room={room} rooms={this.props.rooms} />
 										<button>Delete</button>
 									</td>
 								</tr>

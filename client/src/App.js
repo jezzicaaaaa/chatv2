@@ -15,8 +15,8 @@ class App extends Component {
 			rooms: []
 		};
 	}
-	createRoom = (roomname, user) => {
-		socket.emit('create_room', roomname, user);
+	createRoom = (roomname, user, status) => {
+		socket.emit('create_room', roomname, user, status);
 		getRooms()
 			.then((rooms) => {
 				this.setState({ rooms });
@@ -25,6 +25,10 @@ class App extends Component {
 				console.log(err);
 			});
 	};
+	refreshPage = () => {
+		window.location.reload();
+	};
+
 	logOut() {
 		localStorage.removeItem('x-access-token');
 	}
@@ -39,21 +43,21 @@ class App extends Component {
 			});
 	}
 	render() {
+		const { rooms } = this.state;
 		return (
 			<Router>
 				<div>
-					<Header loggedin={isAuthenticated() ? true : false} logout={this.logOut} />
 					<Switch>
-						<Route exact path="/" component={Lobby} />
+						<Route
+							exact
+							path="/"
+							render={(props) => <Lobby {...props} createHandler={this.createRoom} rooms={rooms} />}
+						/>
 						<Route
 							path="/admin-home"
-							render={(props) => (
-								<AdminHome {...props} createHandler={this.createRoom} rooms={this.state.rooms} />
-							)}
+							render={(props) => <AdminHome {...props} createHandler={this.createRoom} rooms={rooms} />}
 						/>
 						<Route path="/login" component={Login} />
-						{/*<Route path="/admin-home" component={AdminHome} /> */}
-						{/* <Route path="/admin-home/update/:id" component={EditRoom} /> */}
 						<Route path="/chatroom" component={Chatroom} />
 					</Switch>
 				</div>

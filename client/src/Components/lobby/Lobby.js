@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Row, Col, Container, Button } from 'reactstrap';
 import socket from '../../socket';
-
+import Header from './../header/Header';
 import CreateRoom from './CreateRoom';
 import RoomTable from './RoomTable';
 import { Redirect } from 'react-router-dom';
@@ -10,28 +10,29 @@ class Lobby extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			rooms: [],
-			users: []
+			users: [],
+			rooms: []
 		};
 	}
 
-	refreshPage(){
-		window.location.reload();
+	componentDidUpdate(prevProps) {
+		if (prevProps.rooms !== this.props.rooms) {
+			this.setState({
+				rooms: this.props.rooms
+			});
+		}
 	}
 
 	componentDidMount() {
-		socket.on('rooms', (room) => {
-			this.setState({ rooms: room });
-		});
 		socket.on('users', (user) => {
 			this.setState({ users: user });
 		});
 	}
 
 	render() {
-		console.log(socket);
 		return (
 			<Container>
+				<Header />
 				<Row>
 					<Col>
 						<Table dark>
@@ -39,14 +40,13 @@ class Lobby extends Component {
 								<tr>
 									<th>Room Number</th>
 									<th>Room Name</th>
-									<th><Button onClick={this.refreshPage}>Refresh Rooms</Button></th>
+									<th>
+										<Button onClick={this.refreshPage}>Refresh Rooms</Button>
+									</th>
 								</tr>
 							</thead>
-							<RoomTable rooms={this.state.rooms} />
+							<RoomTable rooms={this.props.rooms} />
 						</Table>
-					</Col>
-					<Col>
-						<CreateRoom rooms={this.state.rooms} users={this.state.users} />
 					</Col>
 				</Row>
 			</Container>
@@ -54,3 +54,6 @@ class Lobby extends Component {
 	}
 }
 export default Lobby;
+// <Col>
+// 	<CreateRoom rooms={this.props.rooms} users={this.state.users} />
+// </Col>

@@ -104,7 +104,7 @@ io.on('connection', (socket) => {
 
 	io.emit('rooms', getRooms());
 
-	socket.on('create_room', (roomname, username) => {
+	socket.on('create_room', (roomname, username, status) => {
 		rooms.push(roomname);
 		socket.join(roomname);
 		socket.username = username;
@@ -125,7 +125,7 @@ io.on('connection', (socket) => {
 				roomname: roomname,
 				created: Date.now(),
 				edited: Date.now(),
-				status: 'active'
+				status: status
 			});
 			event.save();
 			room.save();

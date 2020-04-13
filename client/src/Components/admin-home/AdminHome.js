@@ -4,6 +4,7 @@ import { TabContent, TabPane, Nav } from 'reactstrap';
 import EventHistory from '../tab-content/EventHistory';
 import ChatHistory from '../tab-content/ChatHistory';
 import Rooms from '../tab-content/Rooms';
+import Header from '../header/Header';
 import './admin-home.styles.css';
 import { isAuthenticated } from '../../repository';
 
@@ -24,6 +25,7 @@ class AdminHome extends Component {
 			<div className="admin-home">
 				{isAuthenticated() ? (
 					<div className="admin-home-container">
+						<Header loggedin={isAuthenticated() ? true : false} logout={this.logOut} />
 						<Nav tabs>
 							{this.state.tabNames.map((tab, index) => (
 								<Tabs

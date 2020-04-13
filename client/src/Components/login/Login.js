@@ -42,7 +42,7 @@ class Login extends Component {
 								Submit
 							</button>
 							<p>or</p>
-							<Link to="/lobby">Continue as guest</Link>
+							<Link to="/">Continue as guest</Link>
 						</form>
 					</div>
 				</div>
