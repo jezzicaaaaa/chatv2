@@ -18,6 +18,7 @@ const connect = require('./dbConnection');
 const Chat = require('./models/chatSchema');
 const chatRouter = require('./routes/chatRoute');
 const Sockets = require('./models/socketSchema');
+const Rooms = require('./models/roomSchema');
 const socketRouter = require('./routes/socketRoute');
 const index = require('./routes/index');
 
@@ -118,7 +119,13 @@ io.on('connection', (socket) => {
 				username: socket.username,
 				roomname: roomname
 			});
+			let room = new Rooms({
+				roomname: roomname,
+				created: Date.now(),
+				status: 'active'
+			});
 			event.save();
+			room.save();
 		});
 	});
 
