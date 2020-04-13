@@ -6,7 +6,7 @@ class EditRoom extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			roomName: '',
+			roomName: props.room.roomname,
 			status: props.room.status,
 			visible: false,
 			modal: false
@@ -53,7 +53,7 @@ class EditRoom extends Component {
 								type="text"
 								name="text"
 								id="roomName"
-								value={this.props.room.roomname}
+								value={this.state.roomName}
 								onChange={this.handleRoom}
 							/>
 						</FormGroup>
