@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+import { Table, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { getChatHistory, isAuthenticated } from '../../repository';
 
 class ChatHistory extends Component {
@@ -9,15 +9,24 @@ class ChatHistory extends Component {
 			error: null,
 			isLoaded: false,
 			auth: false,
-			chats: []
+			chats: [],
+			currentPage: 0,
+			pageSize: 10,
+			pagesCount: 0
 		};
 	}
-
+	handleClick(e, index) {
+		e.preventDefault();
+		this.setState({
+			currentPage: index
+		});
+	}
 	componentDidMount() {
 		if (isAuthenticated())
 			getChatHistory()
 				.then((chats) => {
-					this.setState({ chats, isLoaded: true, auth: true });
+					const count = Math.ceil(chats.length / 10);
+					this.setState({ chats, isLoaded: true, auth: true, pagesCount: count });
 				})
 				.catch((err) => {
 					alert('User Not Authenticated');
@@ -30,7 +39,7 @@ class ChatHistory extends Component {
 	}
 
 	render() {
-		const { error, isLoaded, chats } = this.state;
+		const { error, isLoaded, chats, currentPage, pageSize, pagesCount } = this.state;
 
 		if (error) {
 			return <div>Error in loading</div>;
@@ -50,19 +59,40 @@ class ChatHistory extends Component {
 							</tr>
 						</thead>
 						<tbody>
-							{chats.map((message, index) => {
-								return (
-									<tr key={index}>
-										<td>{index + 1}</td>
-										<td>{message.roomname}</td>
-										<td>{message.sender}</td>
-										<td>{message.message}</td>
-										<td>{message.createdAt}}</td>
-									</tr>
-								);
-							})}
+							{chats.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map((data, i) => (
+								<tr key={i}>
+									<td>{currentPage * 10 + (i + 1)}</td>
+									<td>{data.roomname}</td>
+									<td>{data.sender}</td>
+									<td>{data.message}</td>
+									<td>{data.createdAt}</td>
+								</tr>
+							))}
 						</tbody>
 					</Table>
+					<div className="pagination-wrapper">
+						<Pagination aria-label="Page navigation example">
+							<PaginationItem disabled={currentPage <= 0}>
+								<PaginationLink
+									onClick={(e) => this.handleClick(e, currentPage - 1)}
+									previous
+									href="#"
+								/>
+							</PaginationItem>
+
+							{[ ...Array(pagesCount) ].map((page, i) => (
+								<PaginationItem active={i === currentPage} key={i}>
+									<PaginationLink onClick={(e) => this.handleClick(e, i)} href="#">
+										{i + 1}
+									</PaginationLink>
+								</PaginationItem>
+							))}
+
+							<PaginationItem disabled={currentPage >= pagesCount - 1}>
+								<PaginationLink onClick={(e) => this.handleClick(e, currentPage + 1)} next href="#" />
+							</PaginationItem>
+						</Pagination>
+					</div>
 				</div>
 			);
 		}

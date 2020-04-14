@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import Login from './Components/login/Login';
-import Header from './Components/header/Header';
 import AdminHome from './Components/admin-home/AdminHome';
 import Lobby from './Components/lobby/Lobby';
 import Chatroom from './Components/chatroom/Chatroom';
-// import EditRoom from './Components/admin-home/crud/UpdateRoom'
-import { BrowserRouter as Router, Route, Redirect, Link, Switch } from 'react-router-dom';
-import { getRooms, isAuthenticated } from './repository';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { getRooms } from './repository';
 import socket from './socket';
 class App extends Component {
 	constructor(props) {

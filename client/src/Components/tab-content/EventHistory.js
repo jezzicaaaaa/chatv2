@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+import { Table, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { getEventHistory, isAuthenticated } from '../../repository';
-import { Redirect } from 'react-router-dom';
 
 class EventHistory extends Component {
 	constructor(props) {
@@ -10,15 +9,25 @@ class EventHistory extends Component {
 			error: null,
 			isLoaded: false,
 			auth: false,
-			events: []
+			events: [],
+			currentPage: 0,
+			pageSize: 10,
+			pagesCount: 0
 		};
 	}
 
+	handleClick(e, index) {
+		e.preventDefault();
+		this.setState({
+			currentPage: index
+		});
+	}
 	componentDidMount() {
 		if (isAuthenticated())
 			getEventHistory()
 				.then((events) => {
-					this.setState({ events, isLoaded: true, auth: true });
+					const count = Math.ceil(events.length / 10);
+					this.setState({ events, isLoaded: true, auth: true, pagesCount: count });
 				})
 				.catch((err) => {
 					alert('User Not Authenticated');
@@ -31,7 +40,7 @@ class EventHistory extends Component {
 	}
 
 	render() {
-		const { error, isLoaded, events } = this.state;
+		const { error, isLoaded, events, currentPage, pageSize, pagesCount } = this.state;
 
 		if (error) {
 			return <div>Error in loading</div>;
@@ -40,7 +49,6 @@ class EventHistory extends Component {
 		} else {
 			return (
 				<div>
-					{this.state.auth ? '' : <Redirect to="/" />}
 					<Table dark hover borderless>
 						<thead>
 							<tr>
@@ -52,19 +60,40 @@ class EventHistory extends Component {
 							</tr>
 						</thead>
 						<tbody>
-							{events.map((event, index) => {
-								return (
-									<tr key={index}>
-										<td>{index + 1}</td>
-										<td>{event.event}</td>
-										<td>{event.username}</td>
-										<td>{event.roomname}</td>
-										<td>{event.createdAt}</td>
-									</tr>
-								);
-							})}
+							{events.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map((data, i) => (
+								<tr key={i}>
+									<td>{currentPage * 10 + (i + 1)}</td>
+									<td>{data.event}</td>
+									<td>{data.username}</td>
+									<td>{data.roomname}</td>
+									<td>{data.createdAt}</td>
+								</tr>
+							))}
 						</tbody>
 					</Table>
+					<div className="pagination-wrapper">
+						<Pagination aria-label="Page navigation example">
+							<PaginationItem disabled={currentPage <= 0}>
+								<PaginationLink
+									onClick={(e) => this.handleClick(e, currentPage - 1)}
+									previous
+									href="#"
+								/>
+							</PaginationItem>
+
+							{[ ...Array(pagesCount) ].map((page, i) => (
+								<PaginationItem active={i === currentPage} key={i}>
+									<PaginationLink onClick={(e) => this.handleClick(e, i)} href="#">
+										{i + 1}
+									</PaginationLink>
+								</PaginationItem>
+							))}
+
+							<PaginationItem disabled={currentPage >= pagesCount - 1}>
+								<PaginationLink onClick={(e) => this.handleClick(e, currentPage + 1)} next href="#" />
+							</PaginationItem>
+						</Pagination>
+					</div>
 				</div>
 			);
 		}

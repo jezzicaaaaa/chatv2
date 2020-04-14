@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import { Table, Row, Col, Container, Button } from 'reactstrap';
+import { Table, Pagination, PaginationItem, PaginationLink, Container, Button } from 'reactstrap';
 import socket from '../../socket';
 import Header from './../header/Header';
-import CreateRoom from './CreateRoom';
 import RoomTable from './RoomTable';
-import { Redirect } from 'react-router-dom';
 
 class Lobby extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			users: [],
-			rooms: []
+			rooms: [],
+			currentPage: 0,
+			pageSize: 10
 		};
 	}
 
+	handleClick(e, index) {
+		e.preventDefault();
+		this.setState({
+			currentPage: index
+		});
+	}
 	componentDidUpdate(prevProps) {
 		if (prevProps.rooms !== this.props.rooms) {
 			this.setState({
@@ -30,25 +36,45 @@ class Lobby extends Component {
 	}
 
 	render() {
+		const { currentPage, pageSize } = this.state;
+		const rooms = this.props.rooms.filter((room) => room.status === 'active');
+		const pagesCount = Math.ceil(rooms.length / 10);
+
 		return (
 			<Container>
 				<Header />
-				<Row>
-					<Col>
-						<Table dark hover borderless>
-							<thead>
-								<tr>
-									<th>Room Number</th>
-									<th>Room Name</th>
-									<th>
-										<Button onClick={this.refreshPage}>Refresh Rooms</Button>
-									</th>
-								</tr>
-							</thead>
-							<RoomTable rooms={this.props.rooms} />
-						</Table>
-					</Col>
-				</Row>
+
+				<Table dark hover borderless>
+					<thead>
+						<tr>
+							<th>Room Number</th>
+							<th>Room Name</th>
+							<th>
+								<Button onClick={this.refreshPage}>Refresh Rooms</Button>
+							</th>
+						</tr>
+					</thead>
+					<RoomTable currentPage={currentPage} pageSize={pageSize} rooms={rooms} />
+				</Table>
+				<div className="pagination-wrapper">
+					<Pagination aria-label="Page navigation example">
+						<PaginationItem disabled={currentPage <= 0}>
+							<PaginationLink onClick={(e) => this.handleClick(e, currentPage - 1)} previous href="#" />
+						</PaginationItem>
+
+						{[ ...Array(pagesCount) ].map((page, i) => (
+							<PaginationItem active={i === currentPage} key={i}>
+								<PaginationLink onClick={(e) => this.handleClick(e, i)} href="#">
+									{i + 1}
+								</PaginationLink>
+							</PaginationItem>
+						))}
+
+						<PaginationItem disabled={currentPage >= pagesCount - 1}>
+							<PaginationLink onClick={(e) => this.handleClick(e, currentPage + 1)} next href="#" />
+						</PaginationItem>
+					</Pagination>
+				</div>
 			</Container>
 		);
 	}

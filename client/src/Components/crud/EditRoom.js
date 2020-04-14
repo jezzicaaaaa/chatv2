@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Input, FormGroup, Label, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import socket from '../../socket';
 
 class EditRoom extends Component {
 	constructor(props) {
@@ -37,7 +36,7 @@ class EditRoom extends Component {
 
 	render() {
 		return (
-			<div class="admin-add-room">
+			<div className="admin-add-room">
 				<Button className="btn-prime" onClick={this.toggle}>
 					Edit
 				</Button>

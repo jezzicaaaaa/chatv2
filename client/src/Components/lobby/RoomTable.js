@@ -4,28 +4,29 @@ import { Link } from 'react-router-dom';
 
 const RoomTable = (props) => {
 	const [ username ] = useState('');
-	const rooms = props.rooms.filter((room) => room.status == 'active');
+	// const { rooms, currentPage, pageSize } = this.props;
+	const rooms = props.rooms;
+	const currentPage = props.currentPage;
+	const pageSize = props.pageSize;
 	return (
 		<tbody>
-			{rooms.map((room, index) => {
-				return (
-					<tr key={index}>
-						<td>{index + 1}</td>
-						<td>{room.roomname}</td>
-						<td>
-							<Link
-								to={{
-									pathname: `/chatroom/${room.roomname}`,
-									username: username,
-									roomName: room.roomname
-								}}
-							>
-								<Button color="success">Join</Button>
-							</Link>
-						</td>
-					</tr>
-				);
-			})}
+			{rooms.slice(currentPage * pageSize, (currentPage + 1) * props.pageSize).map((room, i) => (
+				<tr key={i}>
+					<td>{currentPage * 10 + (i + 1)}</td>
+					<td>{room.roomname}</td>
+					<td>
+						<Link
+							to={{
+								pathname: `/chatroom/${room.roomname}`,
+								username: username,
+								roomName: room.roomname
+							}}
+						>
+							<Button color="success">Join</Button>
+						</Link>
+					</td>
+				</tr>
+			))}
 		</tbody>
 	);
 };
