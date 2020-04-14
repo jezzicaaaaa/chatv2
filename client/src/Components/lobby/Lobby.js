@@ -35,6 +35,10 @@ class Lobby extends Component {
 		});
 	}
 
+	refreshPage() {
+		window.location.reload();
+	}
+
 	render() {
 		const { currentPage, pageSize } = this.state;
 		const rooms = this.props.rooms.filter((room) => room.status === 'active');

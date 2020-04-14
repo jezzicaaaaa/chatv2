@@ -12,7 +12,7 @@ class AdminHome extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tabNames: [ 'Event History', 'Chat History', 'Rooms' ],
+			tabNames: [ 'Rooms', 'Event History', 'Chat History' ],
 			activeTab: '0'
 		};
 	}
@@ -39,14 +39,16 @@ class AdminHome extends Component {
 						</Nav>
 						<TabContent activeTab={this.state.activeTab}>
 							<TabPane tabId="0">
-								<EventHistory />
+								<Rooms createHandler={this.props.createHandler} rooms={this.props.rooms} />
 							</TabPane>
 							<TabPane tabId="1">
 								<ChatHistory />
 							</TabPane>
 							<TabPane tabId="2">
-								<Rooms createHandler={this.props.createHandler} rooms={this.props.rooms} />
+								<EventHistory />
 							</TabPane>
+							
+							
 						</TabContent>
 					</div>
 				) : (

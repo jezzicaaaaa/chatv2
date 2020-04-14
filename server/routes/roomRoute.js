@@ -17,21 +17,22 @@ router.route('/').get((req, res, next) => {
 router.route('/:id').get((req, res, next) => {
 	res.statusCode = 200;
 	connectdb.then((db) => {
-		Rooms.find({}).then((room) => {
+		Rooms.findById({_id: req.params.id}).then((room) => {
 			res.send(room);
 		});
 	});	
 });
 
-  // Delete Room
-  router.route('/rooms/:id').delete((req, res, next) => {
-	  res.statusCode = 200;
-	  connectdb.then((db) => {
-		Rooms.findByIdAndRemove({_id: req.params.id}).then((room) => {
-			res.send(room);
-		});
-	  });
-  });
+// Delete Room
+router.route('/rooms/:id').delete((req, res, next) => {
+	res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+	res.statusCode = 200;
+	connectdb.then((db) => {
+	Rooms.findByIdAndRemove({_id: req.params.id}).then((room) => {
+		res.send(room);
+	});
+	});
+});
 
 // // Update Room
 // router.route('/admin-home/update/:id').put((req, res, next) => {

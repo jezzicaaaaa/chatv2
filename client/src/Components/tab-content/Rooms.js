@@ -1,49 +1,59 @@
 import React, { Component } from 'react';
-import { Button, Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
+import { Button, Pagination, PaginationItem, PaginationLink, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { deleteRoom, getRooms, isAuthenticated } from '../../repository';
+import socket from '../../socket';
 import AddRoom from '../crud/AddRoom';
 import EditRoom from '../crud/EditRoom';
-import Axios from 'axios';
+import axios from 'axios';
 
 class Rooms extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			modal: false,
-			auth: false,
+			error: null,
 			isLoaded: false,
+			auth: false,
 			currentPage: 0,
-			pageSize: 10
+			pageSize: 10,
+			rooms: []
 		};
 	}
 	toggle = () => this.setState({ modal: !this.state.modal });
+
 	handleClick(e, index) {
 		e.preventDefault();
 		this.setState({
 			currentPage: index
 		});
-	}
-
-	delData1 = (roomID) => {
-		const requestOptions = {
-			method: 'DELETE'
-		};
-		fetch(`http://localhost:3100/rooms/${roomID}`, requestOptions)
-			.then((response) => {
-				return response.json();
-			})
-			.then((result) => {
-				console.log('deleted');
-			});
 	};
-	delData2(roomID) {
-		Axios.delete(`http://localhost:3100/rooms/${roomID}`, Rooms)
-			.then((Rooms) => {
-				console.log(Rooms);
-			})
-			.catch((err) => {
+	
+	// componentDidMount() {
+	// 	if (isAuthenticated())
+	// 		getRooms()
+	// 			.then((rooms) => {
+	// 				this.setState({ rooms, isLoaded: true, auth: true });
+	// 			})
+	// 			.catch((err) => {
+	// 				alert('User Not Authenticated');
+	// 				this.setState({ auth: false });
+	// 			});
+	// 	else {
+	// 		// alert('User Not Authenticated');
+	// 		this.setState({ auth: false });
+	// 	}
+	// }
+
+	onDelete = roomID => {
+		  axios.delete(`http://localhost:3100/rooms/${roomID}`)
+		  	.then(response => {
+				  console.log(response);
+				  window.location.reload();
+			  })
+			.catch(err => {
 				console.log(err);
-			});
-	}
+			})
+	};
 
 	render() {
 		const { currentPage, pageSize } = this.state;
@@ -75,7 +85,7 @@ class Rooms extends Component {
 									<EditRoom room={room} rooms={this.props.rooms} />
 								</td>
 								<td>
-									<Button color="danger" onClick={() => this.delData2(room._id)}>
+									<Button color="danger" onClick={() => this.onDelete(room._id)}>
 										Delete
 									</Button>
 								</td>
