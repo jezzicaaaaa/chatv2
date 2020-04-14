@@ -36,3 +36,15 @@ button.btn-prime {
 	display: flex;
 	justify-content: center;
 }
+
+.pagination > li > a
+{
+    color: #0ccac4;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #0ccac4 !Important;
+    border: solid 0.5px #0ccac4 !Important;
+}
