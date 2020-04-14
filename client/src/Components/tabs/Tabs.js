@@ -1,12 +1,12 @@
 import React from 'react';
-import { NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 import './tabs.styles.css';
 
 const Tabs = (props) => {
 	return (
 		<NavItem>
 			<NavLink className={props.toggleClass} onClick={props.clickHandler}>
-				{props.name}
+				<h3>{props.name}</h3>
 			</NavLink>
 		</NavItem>
 	);

@@ -1,20 +1,22 @@
 import React from 'react';
 import './header.styles.css';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
+
 const Header = (props) => {
 	return (
 		<nav className="admin-header">
 			{props.loggedin ? (
 				<div>
 					<p>Administrator</p>
-					<button className="btn-prime" onClick={props.logout}>
+					<Button className="btn-prime" onClick={props.logout}>
 						<a href="/">Log out</a>
-					</button>
+					</Button>
 				</div>
 			) : (
-				<button className="btn-prime">
+				<Button className="btn-prime">
 					<Link to="/login">Log in</Link>
-				</button>
+				</Button>
 			)}
 		</nav>
 	);

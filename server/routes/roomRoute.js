@@ -11,8 +11,27 @@ router.route('/').get((req, res, next) => {
 		Rooms.find({}).then((room) => {
 			res.send(room);
 		});
-	});
+	});	
 });
+
+router.route('/:id').get((req, res, next) => {
+	res.statusCode = 200;
+	connectdb.then((db) => {
+		Rooms.find({}).then((room) => {
+			res.send(room);
+		});
+	});	
+});
+
+  // Delete Room
+  router.route('/rooms/:id').delete((req, res, next) => {
+	  res.statusCode = 200;
+	  connectdb.then((db) => {
+		Rooms.findByIdAndRemove({_id: req.params.id}).then((room) => {
+			res.send(room);
+		});
+	  });
+  });
 
 // // Update Room
 // router.route('/admin-home/update/:id').put((req, res, next) => {
@@ -28,17 +47,6 @@ router.route('/').get((req, res, next) => {
 // 	})
 //   });
 
-//   // Delete Room
-//   router.route('/admin-home/:id').delete((req, res, next) => {
-// 	Rooms.findByIdAndRemove(req.params.id, (error, data) => {
-// 	  if (error) {
-// 		return next(error);
-// 	  } else {
-// 		res.status(200).json({
-// 		  msg: data
-// 		})
-// 	  }
-// 	})
-//   });
+
 
 module.exports = router;

@@ -19,6 +19,12 @@ h1 {
 	letter-spacing: 0.2rem;
 }
 
+h3 {
+	color: #003937;
+	font-variant: small-caps;
+	cursor: pointer;
+}
+
 button.btn-prime {
 	color: white;
 	background: #0ccac4;

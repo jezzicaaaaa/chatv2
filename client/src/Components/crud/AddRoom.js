@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, FormGroup, Label, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Input, FormGroup, Label, Alert, Modal, ModalHeader, ModalBody, Card, CardHeader} from 'reactstrap';
 import socket from '../../socket';
 
 class AddRoom extends Component {
@@ -38,9 +38,12 @@ class AddRoom extends Component {
 	render() {
 		return (
 			<div class="admin-add-room">
-				<button className="btn-prime" onClick={this.toggle}>
-					Add New Room
-				</button>
+				<Card>
+					<Button className="btn-prime" onClick={this.toggle}>
+						Add New Room
+					</Button>
+				</Card>
+				
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
 					<ModalBody>

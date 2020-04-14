@@ -35,7 +35,7 @@ class Lobby extends Component {
 				<Header />
 				<Row>
 					<Col>
-						<Table dark>
+						<Table dark hover borderless>
 							<thead>
 								<tr>
 									<th>Room Number</th>

@@ -4,7 +4,9 @@ import { getRooms, isAuthenticated } from '../../repository';
 import socket from '../../socket';
 import AddRoom from '../crud/AddRoom';
 import EditRoom from '../crud/EditRoom';
-import RoomTableLinks from '../crud/RoomTableLinks';
+import Axios from 'axios';
+
+
 
 class Rooms extends Component {
 	constructor(props) {
@@ -17,12 +19,34 @@ class Rooms extends Component {
 	}
 	toggle = () => this.setState({ modal: !this.state.modal });
 
+	delData1 = roomID => {
+		const requestOptions = {
+		  method: 'DELETE'
+		};
+		fetch(`http://localhost:3100/rooms/${roomID}`, requestOptions).then((response) => {
+		  return response.json();
+		}).then((result) => {
+		  console.log('deleted');
+		});
+	  }
+
+	  delData2(roomID) {
+		  Axios.delete(`http://localhost:3100/rooms/${roomID}`, Rooms)
+		  	.then((Rooms) => {
+				  console.log(Rooms);  
+			  })
+			.catch((err) => {
+				console.log(err);
+			})
+	  }
+	  
+	  
+
 	render() {
 		return (
 			<div>
 				<AddRoom createHandler={this.props.createHandler} rooms={this.props.rooms} />
-				<hr />
-				<Table dark>
+				<Table dark hover borderless>
 					<thead>
 						<tr>
 							<th>#</th>
@@ -44,7 +68,8 @@ class Rooms extends Component {
 									<td>{room.status}</td>
 									<td>
 										<EditRoom room={room} rooms={this.props.rooms} />
-										<button>Delete</button>
+										<Button color='danger' onClick={() => this.delData2(room._id)}>Delete</Button>
+										{/* <p>{room._id}</p> */}
 									</td>
 								</tr>
 							);

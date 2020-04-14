@@ -38,9 +38,9 @@ class EditRoom extends Component {
 	render() {
 		return (
 			<div class="admin-add-room">
-				<button className="btn-prime" onClick={this.toggle}>
+				<Button className="btn-prime" onClick={this.toggle}>
 					Edit
-				</button>
+				</Button>
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
 					<ModalBody>
@@ -68,7 +68,8 @@ class EditRoom extends Component {
 							<Button onClick={this.handleClick} color="primary">
 								Save
 							</Button>
-							<Button onClick={this.toggle} color="primary">
+							<span> </span>
+							<Button onClick={this.toggle} color="secondary">
 								Cancel
 							</Button>
 						</FormGroup>

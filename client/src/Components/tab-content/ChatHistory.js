@@ -39,7 +39,7 @@ class ChatHistory extends Component {
 		} else {
 			return (
 				<div>
-					<Table bordered>
+					<Table dark hover borderless>
 						<thead>
 							<tr>
 								<th>#</th>

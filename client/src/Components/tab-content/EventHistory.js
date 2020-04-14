@@ -41,7 +41,7 @@ class EventHistory extends Component {
 			return (
 				<div>
 					{this.state.auth ? '' : <Redirect to="/" />}
-					<Table bordered>
+					<Table dark hover borderless>
 						<thead>
 							<tr>
 								<th>#</th>
