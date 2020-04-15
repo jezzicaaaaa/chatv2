@@ -39,16 +39,19 @@ class AdminHome extends Component {
 						</Nav>
 						<TabContent activeTab={this.state.activeTab}>
 							<TabPane tabId="0">
-								<Rooms createHandler={this.props.createHandler} rooms={this.props.rooms} />
+								<Rooms
+									editHandler={this.props.editHandler}
+									createHandler={this.props.createHandler}
+									deleteHandler={this.props.deleteHandler}
+									rooms={this.props.rooms}
+								/>
 							</TabPane>
 							<TabPane tabId="1">
-								<ChatHistory />
-							</TabPane>
-							<TabPane tabId="2">
 								<EventHistory />
 							</TabPane>
-							
-							
+							<TabPane tabId="2">
+								<ChatHistory />
+							</TabPane>
 						</TabContent>
 					</div>
 				) : (

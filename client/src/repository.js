@@ -31,6 +31,20 @@ export function getRooms() {
 		.then((response) => response.data)
 		.catch((err) => Promise.reject('Request Not Authenticated!'));
 }
+export function editRoom(roomname, status, id) {
+	return axios.patch(`${BASE_URL}/rooms/${id}`, {
+		roomname: roomname,
+		status: status
+	});
+}
+
+export function deleteRoom(id) {
+	return axios
+		.delete(`${BASE_URL}/rooms/${id}`)
+		.then((response) => response.data)
+		.catch((err) => Promise.reject('Request Not Authenticated!'));
+}
+
 export function login(data) {
 	return axios
 		.post(`${BASE_URL}/api/auth`, { username: data.username, password: data.password })

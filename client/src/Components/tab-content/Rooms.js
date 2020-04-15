@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Pagination, PaginationItem, PaginationLink, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import AddRoom from '../crud/AddRoom';
 import EditRoom from '../crud/EditRoom';
-import axios from 'axios';
 
 class Rooms extends Component {
 	constructor(props) {
@@ -25,17 +24,10 @@ class Rooms extends Component {
 		this.setState({
 			currentPage: index
 		});
-	};
+	}
 
-	onDelete = roomID => {
-		  axios.delete(`http://localhost:3100/rooms/${roomID}`)
-		  	.then(response => {
-				  console.log(response);
-				  window.location.reload();
-			  })
-			.catch(err => {
-				console.log(err);
-			})
+	onDelete = (roomID) => {
+		this.props.deleteHandler(roomID);
 	};
 
 	render() {
@@ -65,7 +57,11 @@ class Rooms extends Component {
 								<td>{room.edited}</td>
 								<td>{room.status}</td>
 								<td>
-									<EditRoom room={room} rooms={this.props.rooms} />
+									<EditRoom
+										editHandler={this.props.editHandler}
+										room={room}
+										rooms={this.props.rooms}
+									/>
 								</td>
 								<td>
 									<Button color="danger" onClick={() => this.onDelete(room._id)}>

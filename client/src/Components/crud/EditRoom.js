@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Input, Form, FormGroup, Label, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import axios from 'axios';
 
 class EditRoom extends Component {
 	constructor(props) {
@@ -12,7 +11,6 @@ class EditRoom extends Component {
 			visible: false,
 			modal: false
 		};
-
 	}
 	onDismiss = () => {
 		this.setState({ visible: false });
@@ -28,27 +26,9 @@ class EditRoom extends Component {
 
 	toggle = () => this.setState({ modal: !this.state.modal });
 
-	onSubmit(e){	
-		axios.patch(`http://localhost:3100/rooms/${this.state.roomID}`, {
-			roomname: this.state.roomName,
-			status: this.state.status
-		});
-		console.log(this.state.roomName, this.state.status);
-		// e.preventDefault(); // for testing
-	}
-
-	// handleClick = (e) => {
-	// 	const found = this.props.rooms.some((el) => el.roomname === this.state.roomName);
-
-	// 	if (this.state.roomName === '' || found === true) {
-	// 		e.preventDefault();
-	// 		this.setState({ visible: true });
-	// 	} else {
-	// 		this.props.createHandler(this.state.roomName, 'admin', this.state.status);
-	// 		this.setState({ roomName: '', visible: false });
-	// 		this.toggle();
-	// 	}
-	// };
+	onSubmit = () => {
+		this.props.editHandler(this.state.roomName, this.state.status, this.state.roomID);
+	};
 
 	render() {
 		return (
@@ -62,43 +42,29 @@ class EditRoom extends Component {
 						<Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss} fade={false}>
 							Make sure room is not created yet and please fill in the following:
 						</Alert>
-
-						<Form onSubmit={this.onSubmit.bind(this)}>
-							
+						<Form onSubmit={this.onSubmit}>
 							<FormGroup>
 								<Label for="roomName">Room name:</Label>
-								<Input
-									type="text"
-									value={this.state.roomName}
-									onChange={this.handleRoom}
-								/>
+								<Input type="text" value={this.state.roomName} onChange={this.handleRoom} />
 							</FormGroup>
 
 							<FormGroup>
 								<Label for="status">Status</Label>
-								<Input 
-									type='select' 
-									class='submitButton'
-									value={this.state.status} 
-									onChange={this.handleStatus}>
+								<Input
+									type="select"
+									class="submitButton"
+									value={this.state.status}
+									onChange={this.handleStatus}
+								>
 									<option value="active">Active</option>
 									<option value="inactive">Inactive</option>
 								</Input>
 							</FormGroup>
-
 							<FormGroup>
-								<Input type='submit' className='submitStyle'></Input>
-								{/* <Button onClick={this.handleClick} color="primary">
-									Save
-								</Button> */}
+								<Input type="submit" className="submitStyle" />
 								<span> </span>
-								{/* <Button onClick={this.toggle} color="secondary">
-									Cancel
-								</Button> */}
 							</FormGroup>
-
 						</Form>
-						
 					</ModalBody>
 				</Modal>
 			</div>
