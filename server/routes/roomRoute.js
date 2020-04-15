@@ -21,7 +21,7 @@ router.route('/:id').get(async (req, res) => {
 	try {
 		const room = await Rooms.findById({_id: req.params.id});
 		res.json(room);
-		
+
 	} catch (err) {
 		res.json({message: err});
 	}
@@ -39,7 +39,7 @@ router.route('/:id').patch(async (req, res) => {
 	try {
 		const updatedRoom = await Rooms.updateOne(
 			{ _id: req.params.id },
-			{ $set: {roomname: req.body.roomname} }
+			{ $set: {roomname: req.body.roomname, status: req.body.status} }
 		);
 		res.json(updatedRoom);
 

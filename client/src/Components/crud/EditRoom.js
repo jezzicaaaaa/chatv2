@@ -24,24 +24,27 @@ class EditRoom extends Component {
 		this.setState({ status: e.target.value });
 	};
 	toggle = () => this.setState({ modal: !this.state.modal });
-	handleClick = (e) => {
-		const found = this.props.rooms.some((el) => el.roomname === this.state.roomName);
 
-		if (this.state.roomName === '' || found === true) {
-			e.preventDefault();
-			this.setState({ visible: true });
-		} else {
-			this.props.createHandler(this.state.roomName, 'admin', this.state.status);
-			this.setState({ roomName: '', visible: false });
-			this.toggle();
-		}
-	};
+	// handleClick = (e) => {
+	// 	const found = this.props.rooms.some((el) => el.roomname === this.state.roomName);
+
+	// 	if (this.state.roomName === '' || found === true) {
+	// 		e.preventDefault();
+	// 		this.setState({ visible: true });
+	// 	} else {
+	// 		this.props.createHandler(this.state.roomName, 'admin', this.state.status);
+	// 		this.setState({ roomName: '', visible: false });
+	// 		this.toggle();
+	// 	}
+	// };
 
 	onSubmit(e){	
 		axios.patch(`http://localhost:3100/rooms/${this.state.roomID}`, {
 			roomname: this.state.roomName,
 			status: this.state.status
-		})
+		});
+		console.log(this.state.roomName, this.state.status);
+		// e.preventDefault(); // for testing
 	}
 
 	render() {
@@ -69,6 +72,7 @@ class EditRoom extends Component {
 
 							<FormGroup>
 								<Label for="status">Status</Label>
+
 								<Input 
 									type='select' 
 									value={this.state.status} 
@@ -76,10 +80,13 @@ class EditRoom extends Component {
 									<option value="active">Active</option>
 									<option value="inactive">Inactive</option>
 								</Input>
-								{/* <select value={this.state.status} onChange={this.handleStatus}>
-									<option value="active">Active</option>
-									<option value="inactive">Inactive</option>
-								</select> */}
+
+								{/* <Input
+									type="text"
+									value={this.state.status}
+									onChange={this.handleStatus}
+								/> */}
+
 							</FormGroup>
 
 							<FormGroup>
@@ -89,9 +96,9 @@ class EditRoom extends Component {
 									Save
 								</Button> */}
 								<span> </span>
-								<Button onClick={this.toggle} color="secondary">
+								{/* <Button onClick={this.toggle} color="secondary">
 									Cancel
-								</Button>
+								</Button> */}
 							</FormGroup>
 						</Form>
 						
