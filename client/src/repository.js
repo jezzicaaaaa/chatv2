@@ -31,13 +31,6 @@ export function getRooms() {
 		.then((response) => response.data)
 		.catch((err) => Promise.reject('Request Not Authenticated!'));
 }
-// Trying Delete
-export function deleteRoom(roomID) {
-	return axios
-		.delete(`${BASE_URL}/rooms/${roomID}`, { params: { 'x-access-token': localStorage.getItem('x-access-token') } })
-		.then((response) => response.data)
-		.catch((err) => Promise.reject('Request Not Authenticated!'));
-}
 export function login(data) {
 	return axios
 		.post(`${BASE_URL}/api/auth`, { username: data.username, password: data.password })

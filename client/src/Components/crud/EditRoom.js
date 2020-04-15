@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Button, Input, FormGroup, Label, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Input, Form, FormGroup, Label, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import axios from 'axios';
 
 class EditRoom extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			roomID: props.room._id,
 			roomName: props.room.roomname,
 			status: props.room.status,
 			visible: false,
 			modal: false
 		};
+
 	}
 	onDismiss = () => {
 		this.setState({ visible: false });
@@ -34,6 +37,13 @@ class EditRoom extends Component {
 		}
 	};
 
+	onSubmit(e){	
+		axios.patch(`http://localhost:3100/rooms/${this.state.roomID}`, {
+			roomname: this.state.roomName,
+			status: this.state.status
+		})
+	}
+
 	render() {
 		return (
 			<div className="admin-add-room">
@@ -46,32 +56,45 @@ class EditRoom extends Component {
 						<Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss} fade={false}>
 							Make sure room is not created yet and please fill in the following:
 						</Alert>
-						<FormGroup>
-							<Label for="roomName">Room name:</Label>
-							<Input
-								type="text"
-								name="text"
-								id="roomName"
-								value={this.state.roomName}
-								onChange={this.handleRoom}
-							/>
-						</FormGroup>
-						<FormGroup>
-							<Label for="status">Status</Label>
-							<select value={this.state.status} onChange={this.handleStatus}>
-								<option value="active">Active</option>
-								<option value="inactive">Inactive</option>
-							</select>
-						</FormGroup>
-						<FormGroup>
-							<Button onClick={this.handleClick} color="primary">
-								Save
-							</Button>
-							<span> </span>
-							<Button onClick={this.toggle} color="secondary">
-								Cancel
-							</Button>
-						</FormGroup>
+
+						<Form onSubmit={this.onSubmit.bind(this)}>
+							<FormGroup>
+								<Label for="roomName">Room name:</Label>
+								<Input
+									type="text"
+									value={this.state.roomName}
+									onChange={this.handleRoom}
+								/>
+							</FormGroup>
+
+							<FormGroup>
+								<Label for="status">Status</Label>
+								<Input 
+									type='select' 
+									value={this.state.status} 
+									onChange={this.handleStatus}>
+									<option value="active">Active</option>
+									<option value="inactive">Inactive</option>
+								</Input>
+								{/* <select value={this.state.status} onChange={this.handleStatus}>
+									<option value="active">Active</option>
+									<option value="inactive">Inactive</option>
+								</select> */}
+							</FormGroup>
+
+							<FormGroup>
+								<Input type='submit'></Input>
+
+								{/* <Button onClick={this.handleClick} color="primary">
+									Save
+								</Button> */}
+								<span> </span>
+								<Button onClick={this.toggle} color="secondary">
+									Cancel
+								</Button>
+							</FormGroup>
+						</Form>
+						
 					</ModalBody>
 				</Modal>
 			</div>

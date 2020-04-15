@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Pagination, PaginationItem, PaginationLink, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { deleteRoom, getRooms, isAuthenticated } from '../../repository';
 import socket from '../../socket';
 import AddRoom from '../crud/AddRoom';
 import EditRoom from '../crud/EditRoom';
@@ -27,22 +26,6 @@ class Rooms extends Component {
 			currentPage: index
 		});
 	};
-	
-	// componentDidMount() {
-	// 	if (isAuthenticated())
-	// 		getRooms()
-	// 			.then((rooms) => {
-	// 				this.setState({ rooms, isLoaded: true, auth: true });
-	// 			})
-	// 			.catch((err) => {
-	// 				alert('User Not Authenticated');
-	// 				this.setState({ auth: false });
-	// 			});
-	// 	else {
-	// 		// alert('User Not Authenticated');
-	// 		this.setState({ auth: false });
-	// 	}
-	// }
 
 	onDelete = roomID => {
 		  axios.delete(`http://localhost:3100/rooms/${roomID}`)

@@ -14,24 +14,39 @@ router.route('/').get((req, res, next) => {
 	});	
 });
 
-router.route('/:id').get((req, res, next) => {
-	res.statusCode = 200;
-	connectdb.then((db) => {
-		Rooms.findById({_id: req.params.id}).then((room) => {
-			res.send(room);
-		});
-	});	
+// Get Specific Room
+router.route('/:id').get(async (req, res) => {
+	console.log(req.params);
+	
+	try {
+		const room = await Rooms.findById({_id: req.params.id});
+		res.json(room);
+		
+	} catch (err) {
+		res.json({message: err});
+	}
 });
 
 // Delete Room
-router.route('/rooms/:id').delete((req, res, next) => {
-	res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-	res.statusCode = 200;
-	connectdb.then((db) => {
+router.route('/:id').delete((req, res) => {
 	Rooms.findByIdAndRemove({_id: req.params.id}).then((room) => {
 		res.send(room);
 	});
-	});
+});
+
+// Update Room
+router.route('/:id').patch(async (req, res) => {
+	try {
+		const updatedRoom = await Rooms.updateOne(
+			{ _id: req.params.id },
+			{ $set: {roomname: req.body.roomname} }
+		);
+		res.json(updatedRoom);
+
+	} catch (err) {
+		res.json( {message: err});
+	}
+
 });
 
 // // Update Room
@@ -47,7 +62,5 @@ router.route('/rooms/:id').delete((req, res, next) => {
 // 	  }
 // 	})
 //   });
-
-
 
 module.exports = router;

@@ -47,7 +47,10 @@ app.use('/', index);
 app.use('/chat', chatRouter);
 app.use('/events', socketRouter);
 app.use('/rooms', roomRouter);
-app.delete('/rooms/:id', roomRouter);
+// app.use('/rooms/:id', roomRouter);
+// app.delete('/rooms/:id', roomRouter);
+// app.patch('/rooms/:id', roomRouter);
+
 app.post('/api/auth', (req, res) => {
 	let user = data.users.filter((user) => {
 		return user.username == req.body.username && user.password == req.body.password;
