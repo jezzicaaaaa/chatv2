@@ -8,7 +8,7 @@ Group Members:
 
 
 ```
-1. Startup (to run app locally)
+1. Startup Instructions (to run app locally)
    - Run server
      - open a terminal
      - cd server
