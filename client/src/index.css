@@ -48,3 +48,16 @@ button.btn-prime {
     background-color: #0ccac4 !Important;
     border: solid 0.5px #0ccac4 !Important;
 }
+
+.submitStyle{
+	color: white !Important;
+	background-color: #0ccac4 !Important;
+	border: none !Important;
+
+}
+
+.submitStyle:hover{
+	color: white !Important;
+	background-color: grey !Important;
+	border: none !Important;
+}

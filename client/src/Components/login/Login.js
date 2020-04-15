@@ -36,9 +36,10 @@ class Login extends Component {
 								type="password"
 								className="form-control"
 								name="password"
+								placeholder="Password"
 								onChange={this.handleInputChange}
 							/>
-							<button className="btn-prime" type="submit">
+							<button className="submitStyle" type="submit">
 								Submit
 							</button>
 							<p>or</p>

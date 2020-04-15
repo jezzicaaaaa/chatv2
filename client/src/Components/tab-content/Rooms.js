@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Pagination, PaginationItem, PaginationLink, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import socket from '../../socket';
 import AddRoom from '../crud/AddRoom';
 import EditRoom from '../crud/EditRoom';
 import axios from 'axios';
@@ -18,6 +17,7 @@ class Rooms extends Component {
 			rooms: []
 		};
 	}
+
 	toggle = () => this.setState({ modal: !this.state.modal });
 
 	handleClick(e, index) {
@@ -100,26 +100,3 @@ class Rooms extends Component {
 	}
 }
 export default Rooms;
-
-// <RoomTableLinks rooms={this.state.rooms} />
-// {this.props.rooms.map((room, index) => {
-// 						return (
-// 							<tr key={index}>
-// 								<td>{index + 1}</td>
-// 								<td>{room.roomname}</td>
-// 								<td>{room.created}</td>
-// 								<td>{room.edited}</td>
-// 								<td>{room.status}</td>
-// 								<td>
-// 									<EditRoom room={room} rooms={this.props.rooms} />
-
-// 									{/* <p>{room._id}</p> */}
-// 								</td>
-// 								<td>
-// 									<Button color="danger" onClick={() => this.delData2(room._id)}>
-// 										Delete
-// 									</Button>
-// 								</td>
-// 							</tr>
-// 						);
-// 					// })}

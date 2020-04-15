@@ -17,13 +17,25 @@ class EditRoom extends Component {
 	onDismiss = () => {
 		this.setState({ visible: false });
 	};
+
 	handleRoom = (e) => {
 		this.setState({ roomName: e.target.value });
 	};
+
 	handleStatus = (e) => {
 		this.setState({ status: e.target.value });
 	};
+
 	toggle = () => this.setState({ modal: !this.state.modal });
+
+	onSubmit(e){	
+		axios.patch(`http://localhost:3100/rooms/${this.state.roomID}`, {
+			roomname: this.state.roomName,
+			status: this.state.status
+		});
+		console.log(this.state.roomName, this.state.status);
+		// e.preventDefault(); // for testing
+	}
 
 	// handleClick = (e) => {
 	// 	const found = this.props.rooms.some((el) => el.roomname === this.state.roomName);
@@ -37,15 +49,6 @@ class EditRoom extends Component {
 	// 		this.toggle();
 	// 	}
 	// };
-
-	onSubmit(e){	
-		axios.patch(`http://localhost:3100/rooms/${this.state.roomID}`, {
-			roomname: this.state.roomName,
-			status: this.state.status
-		});
-		console.log(this.state.roomName, this.state.status);
-		// e.preventDefault(); // for testing
-	}
 
 	render() {
 		return (
@@ -61,6 +64,7 @@ class EditRoom extends Component {
 						</Alert>
 
 						<Form onSubmit={this.onSubmit.bind(this)}>
+							
 							<FormGroup>
 								<Label for="roomName">Room name:</Label>
 								<Input
@@ -72,26 +76,18 @@ class EditRoom extends Component {
 
 							<FormGroup>
 								<Label for="status">Status</Label>
-
 								<Input 
 									type='select' 
+									class='submitButton'
 									value={this.state.status} 
 									onChange={this.handleStatus}>
 									<option value="active">Active</option>
 									<option value="inactive">Inactive</option>
 								</Input>
-
-								{/* <Input
-									type="text"
-									value={this.state.status}
-									onChange={this.handleStatus}
-								/> */}
-
 							</FormGroup>
 
 							<FormGroup>
-								<Input type='submit'></Input>
-
+								<Input type='submit' className='submitStyle'></Input>
 								{/* <Button onClick={this.handleClick} color="primary">
 									Save
 								</Button> */}
@@ -100,6 +96,7 @@ class EditRoom extends Component {
 									Cancel
 								</Button> */}
 							</FormGroup>
+
 						</Form>
 						
 					</ModalBody>

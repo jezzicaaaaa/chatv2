@@ -14,13 +14,17 @@ class AddRoom extends Component {
 	onDismiss = () => {
 		this.setState({ visible: false });
 	};
+
 	handleRoom = (e) => {
 		this.setState({ roomName: e.target.value });
 	};
+
 	handleStatus = (e) => {
 		this.setState({ status: e.target.value });
 	};
+
 	toggle = () => this.setState({ modal: !this.state.modal });
+
 	handleClick = (e) => {
 		const found = this.props.rooms.some((el) => el.roomname === this.state.roomName);
 
@@ -47,7 +51,7 @@ class AddRoom extends Component {
 					<ModalHeader toggle={this.toggle}>Add Room</ModalHeader>
 					<ModalBody>
 						<Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss} fade={false}>
-							Make sure room is not created yet and please fill in the following:
+							That room name is already taken. Please try another name.
 						</Alert>
 						<FormGroup>
 							<Label for="roomName">Room name:</Label>
@@ -55,23 +59,30 @@ class AddRoom extends Component {
 								type="text"
 								name="text"
 								id="roomName"
-								placeholder="bbbrrROOM"
+								placeholder="Shawn Michaels' Room"
 								value={this.state.roomName}
 								onChange={this.handleRoom}
 							/>
 						</FormGroup>
+
 						<FormGroup>
 							<Label for="username">Status</Label>
-							<select value={this.state.status} onChange={this.handleStatus}>
-								<option value="active">Active</option>
-								<option value="inactive">Inactive</option>
-							</select>
+							<Input 
+									type='select' 
+									value={this.state.status} 
+									onChange={this.handleStatus}>
+									<option value="active">Active</option>
+									<option value="inactive">Inactive</option>
+							</Input>
 						</FormGroup>
+
 						<FormGroup>
-							<Button onClick={this.handleClick} color="primary">
+						<Input type='submit' onClick={this.handleClick} className='submitStyle'></Input>
+							{/* <Button onClick={this.handleClick} color="primary">
 								Add
-							</Button>
+							</Button> */}
 						</FormGroup>
+						
 					</ModalBody>
 				</Modal>
 			</div>
