@@ -33,8 +33,6 @@ class EditRoom extends Component {
 			roomname: this.state.roomName,
 			status: this.state.status
 		});
-		console.log(this.state.roomName, this.state.status);
-		// e.preventDefault(); // for testing
 	}
 
 	// handleClick = (e) => {
@@ -77,8 +75,7 @@ class EditRoom extends Component {
 							<FormGroup>
 								<Label for="status">Status</Label>
 								<Input 
-									type='select' 
-									class='submitButton'
+									type='select'
 									value={this.state.status} 
 									onChange={this.handleStatus}>
 									<option value="active">Active</option>

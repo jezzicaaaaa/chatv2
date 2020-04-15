@@ -61,3 +61,13 @@ button.btn-prime {
 	background-color: grey !Important;
 	border: none !Important;
 }
+
+.navStyle2{
+	background-color: gainsboro;
+	border: none;
+}
+
+.navStyle2:hover{
+	background-color: white;
+	border: none;
+}

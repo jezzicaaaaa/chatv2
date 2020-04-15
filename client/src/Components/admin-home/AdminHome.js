@@ -48,7 +48,6 @@ class AdminHome extends Component {
 								<EventHistory />
 							</TabPane>
 							
-							
 						</TabContent>
 					</div>
 				) : (

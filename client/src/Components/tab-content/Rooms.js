@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Pagination, PaginationItem, PaginationLink, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import AddRoom from '../crud/AddRoom';
-import EditRoom from '../crud/EditRoom';
+import { Button, Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
+import AddRoom from '../admin-home/crud/AddRoom';
+import EditRoom from '../admin-home/crud/EditRoom';
 import axios from 'axios';
 
 class Rooms extends Component {

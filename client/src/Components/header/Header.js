@@ -15,7 +15,7 @@ const Header = (props) => {
 				</div>
 			) : (
 				<Button className="btn-prime">
-					<Link to="/login">Log in</Link>
+					<Link to="/login">Admin Login</Link>
 				</Button>
 			)}
 		</nav>
