@@ -1,5 +1,5 @@
 ```
-COMP3133 Chat Application - Assignment 1
+COMP3133 Chat Application - Assignment 2
 
 Group Members:
 - Jezzica Tan, 101142271
@@ -20,9 +20,6 @@ Group Members:
      - cd client
      - npm install
      - npm run start
-
-   - Guest Lobby is at ( http://localhost:3000 )
-
 ```
 
 ```
