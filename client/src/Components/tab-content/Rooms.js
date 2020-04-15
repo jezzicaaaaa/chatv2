@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
-import AddRoom from '../crud/AddRoom';
-import EditRoom from '../crud/EditRoom';
+import AddRoom from '../admin-home/crud/AddRoom';
+import EditRoom from '../admin-home/crud/EditRoom';
 
 class Rooms extends Component {
 	constructor(props) {

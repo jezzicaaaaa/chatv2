@@ -60,6 +60,7 @@ class Lobby extends Component {
 					</thead>
 					<RoomTable currentPage={currentPage} pageSize={pageSize} rooms={rooms} />
 				</Table>
+
 				<div className="pagination-wrapper">
 					<Pagination aria-label="Page navigation example">
 						<PaginationItem disabled={currentPage <= 0}>
@@ -84,6 +85,3 @@ class Lobby extends Component {
 	}
 }
 export default Lobby;
-// <Col>
-// 	<CreateRoom rooms={this.props.rooms} users={this.state.users} />
-// </Col>

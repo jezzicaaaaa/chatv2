@@ -52,7 +52,7 @@ class EditRoom extends Component {
 								<Label for="status">Status</Label>
 								<Input
 									type="select"
-									class="submitButton"
+									className="submitButton"
 									value={this.state.status}
 									onChange={this.handleStatus}
 								>
